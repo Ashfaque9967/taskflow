@@ -31,7 +31,7 @@ A full-stack task management API built with **Node.js**, **Express**, **Prisma**
 
 ## API Reference
 
-**Base URL:** `https://taskflow-api-xwz6.onrender.com`
+**Base URL:** `https://taskflow-api-xwz6.onrender.com/health`
 
 ### Authentication
 
