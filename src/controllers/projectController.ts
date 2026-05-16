@@ -68,6 +68,63 @@ export async function getProjects(req: Request, res: Response) {
     res.status(500).json({ error: 'Something went wrong' })
   }
 }
+export async function getProjectById(req: Request, res: Response) {
+  try {
+    const projectId = req.params.id as string;
+
+    // Verify user has access (owner or member)
+    const project = await prisma.project.findFirst({
+      where: {
+        id: projectId,
+        OR: [
+          { ownerId: req.user!.id },
+          { members: { some: { userId: req.user!.id } } },
+        ],
+      },
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        status: true,
+        createdAt: true,
+        owner: {
+          select: { id: true, name: true, email: true },
+        },
+        tasks: {
+          select: {
+            id: true,
+            title: true,
+            status: true,
+            priority: true,
+            dueDate: true,
+            assignee: {
+              select: { id: true, name: true },
+            },
+          },
+          orderBy: { createdAt: "desc" },
+        },
+        members: {
+          select: {
+            role: true,
+            user: {
+              select: { id: true, name: true, email: true },
+            },
+          },
+        },
+      },
+    });
+
+    if (!project) {
+      res.status(404).json({ error: "Project not found" });
+      return;
+    }
+
+    res.json({ message: "Project found", project });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Something went wrong" });
+  }
+}
 
 export async function updateProject(req: Request, res: Response) {
   try {

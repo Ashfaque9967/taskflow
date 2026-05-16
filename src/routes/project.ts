@@ -9,12 +9,14 @@ import {
   listMembers,
   removeMember,
   getActivityLog,
+  getProjectById,
 } from '../controllers/projectController'
 
 const router = Router()
 
 router.post('/', authMiddleware, createProject)
 router.get('/', authMiddleware, getProjects)
+router.get("/:id", authMiddleware, getProjectById);
 router.patch('/:id', authMiddleware, updateProject)
 router.delete('/:id', authMiddleware, deleteProject)
 router.post('/:id/members', authMiddleware, inviteMember)
