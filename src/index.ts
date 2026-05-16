@@ -7,10 +7,15 @@ import authRoutes from './routes/auth'
 import userRoutes from './routes/user'
 import projectRoutes from './routes/project'
 import taskRoutes from './routes/task'
+import cors from 'cors';
 
 const app = express()
 const PORT = process.env.PORT || 5000
 
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://your-frontend-url.com'],
+  credentials: true,
+}));
 app.use(express.json())
 app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
