@@ -53,6 +53,7 @@ A full-stack task management API built with **Node.js**, **Express**, **Prisma**
 |--------|----------|-------------|
 | `POST` | `/api/projects` | Create a new project |
 | `GET` | `/api/projects` | List all your projects |
+| `GET` | `/api/projects/:id` | Get single project with owner, tasks, members |
 | `PATCH` | `/api/projects/:id` | Update a project |
 | `DELETE` | `/api/projects/:id` | Delete a project |
 | `POST` | `/api/projects/:id/members` | Invite a member |
